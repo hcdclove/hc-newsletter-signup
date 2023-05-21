@@ -37,7 +37,7 @@ async function callPing() {
 }
 
 // test that mailchimp is listening to us
-callPing();
+// callPing();
 
 // Home route - serving the home page represented by index.html
 app.get('/', (req, res) => {
