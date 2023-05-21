@@ -92,8 +92,10 @@ app.post('/', (req, res) => {
   );
 
   res.write(url);
-  res.write("<br>");
-  res.write( prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER);
+  res.write('<br>');
+  res.write(
+    prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER
+  );
   res.send();
   // Connect to the mailchip server and send the data
   // const request = https.request(url, option, function (response) {
@@ -106,10 +108,10 @@ app.post('/', (req, res) => {
   //       res.sendFile(__dirname + '/views/fealure.html', (req, res) => {});
   //     }
   //   });
-  });
+  // });
 
-  request.write(jsonData);
-  request.end();
+  // request.write(jsonData);
+  // request.end();
 
   // res.send('Got your post: name: ' + fname + ' ' + lname + ' ' + email);
 });
