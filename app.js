@@ -76,18 +76,18 @@ app.post('/', (req, res) => {
 
   const jsonData = JSON.stringify(data);
 
-  console.log(jsonData);
-
   const url = endPoint + '/lists/' + audience;
 
   console.log(url);
 
   const option = {
     method: 'POST',
-    auth: prefix + ':' + process.env.MC_API_KEY + process.env.MC_SERVER,
+    auth: prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER,
   };
 
-  console.log(prefix + ':' + process.env.MC_API_KEY + process.env.MC_SERVER);
+  console.log(
+    prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER
+  );
 
   // Connect to the mailchip server and send the data
   const request = https.request(url, option, function (response) {
