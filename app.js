@@ -23,7 +23,7 @@ mailchimp.setConfig({
   server: process.env.MC_SERVER,
 });
 
-// API Settings
+// // API Settings
 const endPoint = process.env.MC_END_POINT;
 const audience = process.env.MC_AUDIENCE;
 
@@ -33,7 +33,6 @@ app.use(express.static('public'));
 async function callPing() {
   const response = await mailchimp.ping.get();
   // console.log(response.health_status);
-  // console.log(response);
 }
 
 // test that mailchimp is listening to us
@@ -78,8 +77,6 @@ app.post('/', (req, res) => {
 
   const url = endPoint + '/lists/' + audience;
 
-  console.log(url);
-
   const option = {
     method: 'POST',
     auth: prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER,
@@ -92,7 +89,6 @@ app.post('/', (req, res) => {
   // Connect to the mailchip server and send the data
   const request = https.request(url, option, function (response) {
     response.on('data', (data) => {
-      // console.log(JSON.parse(data));
       const success = 200;
 
       if (response.statusCode == success) {
