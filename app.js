@@ -91,11 +91,10 @@ app.post('/', (req, res) => {
     prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER
   );
 
-  res.write(url);
+  res.write(process.env);
   res.write('<br>');
-  res.write(
-    prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER
-  );
+  res.write(url);
+
   res.send();
   // Connect to the mailchip server and send the data
   // const request = https.request(url, option, function (response) {
