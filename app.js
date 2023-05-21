@@ -16,13 +16,6 @@ const herokuPost = process.env.PORT;
 const localPort = 3000;
 const prefix = 'hcdc';
 
-// const MC_API_KEY = '375ffc7227f05b0c43f5d76ec02fe66b';
-// const MC_AUDIENCE = '476e521f30';
-// const MC_SERVER = 'us21';
-// const MC_END_POINT = 'https://us21.api.mailchimp.com/3.0';
-
-// console.log(process.env);
-
 mailchimp.setConfig({
   accessToken: process.env.MC_API_KEY,
   server: process.env.MC_SERVER,
