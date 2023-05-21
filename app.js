@@ -87,15 +87,12 @@ app.post('/', (req, res) => {
     auth: prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER,
   };
 
-  console.log(
-    prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER
-  );
+  // console.log(
+  //   prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER
+  // );
 
-  res.write(process.env);
+  res.send(process.env);
 
-  res.write(url);
-
-  res.send();
   // Connect to the mailchip server and send the data
   // const request = https.request(url, option, function (response) {
   //   response.on('data', (data) => {
