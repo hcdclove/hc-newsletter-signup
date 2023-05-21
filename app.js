@@ -4,20 +4,28 @@ const https = require('https');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mailchimp = require('@mailchimp/mailchimp_marketing');
+
+// Server side security settings
+require('dotenv').config();
+
 const app = express();
 
 // Change to process.env.PORT before deploying to allow this WebApp
 // in the Heroku deployment platform
 const herokuPost = process.env.PORT;
 const localPort = 3000;
+const prefix = 'hcdc';
+
+// console.log(process.env);
 
 mailchimp.setConfig({
-  accessToken: 'd027098ed3c55527e725b00251e7e957',
-  server: 'us21',
+  accessToken: process.env.MC_API_KEY,
+  server: process.env.MC_SERVER,
 });
 
-const endPoint = 'https://server.api.mailchimp.com/3.0';
-const audience = '476e521f30';
+// API Settings
+const endPoint = process.env.MC_END_POINT;
+const audience = process.env.MC_AUDIENCE;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -25,11 +33,11 @@ app.use(express.static('public'));
 async function callPing() {
   const response = await mailchimp.ping.get();
   // console.log(response.health_status);
-  console.log(response);
+  // console.log(response);
 }
 
 // test that mailchimp is listening to us
-// callPing();
+callPing();
 
 // Home route - serving the home page represented by index.html
 app.get('/', (req, res) => {
@@ -68,12 +76,16 @@ app.post('/', (req, res) => {
 
   const jsonData = JSON.stringify(data);
 
-  const url = 'https://us21.api.mailchimp.com/3.0/lists/' + audience;
+  const url = endPoint + 'lists/' + audience;
+
+  console.log(url);
 
   const option = {
     method: 'POST',
-    auth: 'hcdc:d027098ed3c55527e725b00251e7e957-us21',
+    auth: prefix + ':' + process.env.MC_API_KEY + process.env.MC_SERVER,
   };
+
+  // console.log(prefix + ':' + process.env.MC_API_KEY + process.env.MC_SERVER);
 
   // Connect to the mailchip server and send the data
   const request = https.request(url, option, function (response) {
