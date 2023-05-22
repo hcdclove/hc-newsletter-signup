@@ -38,7 +38,8 @@ async function callPing() {
 
 // Home route - serving the home page represented by index.html
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/signup.html');
+  // res.sendFile(__dirname + '/views/signup.html');
+  res.send(process.env);
 });
 
 // Success route - serving the success page represented by success.html
@@ -75,9 +76,26 @@ app.post('/', (req, res) => {
 
   const url = endPoint + '/lists/' + audience;
 
-  res.send(url);
+  const option = {
+    method: 'POST',
+    auth: prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER,
+  };
 
-  // res.send('Got your post: name: ' + fname + ' ' + lname + ' ' + email);
+  // Connect to the mailchip server and send the data
+  const request = https.request(url, option, function (response) {
+    response.on('data', (data) => {
+      const success = 200;
+
+      if (response.statusCode == success) {
+        res.sendFile(__dirname + '/views/success.html', (req, res) => {});
+      } else {
+        res.sendFile(__dirname + '/views/fealure.html', (req, res) => {});
+      }
+    });
+  });
+
+  request.write(jsonData);
+  request.end();
 });
 
 app.post('/fealure', (req, res) => {
