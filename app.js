@@ -80,30 +80,24 @@ app.post('/', (req, res) => {
     auth: prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER,
   };
 
-  // console.log(
-  //   prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER
-  // );
-
-  res.send(process.env);
+ 
 
   // Connect to the mailchip server and send the data
-  // const request = https.request(url, option, function (response) {
-  //   response.on('data', (data) => {
-  //     const success = 200;
+  const request = https.request(url, option, function (response) {
+    response.on('data', (data) => {
+      const success = 200;
 
-  //     if (response.statusCode == success) {
-  //       res.sendFile(__dirname + '/views/success.html', (req, res) => {});
-  //     } else {
-  //       res.sendFile(__dirname + '/views/fealure.html', (req, res) => {});
-  //     }
-  //   });
-  // });
+      if (response.statusCode == success) {
+        res.sendFile(__dirname + '/views/success.html', (req, res) => {});
+      } else {
+        res.sendFile(__dirname + '/views/fealure.html', (req, res) => {});
+      }
+    });
+  });
 
-  // request.write(jsonData);
-  // request.end();
+  request.write(jsonData);
+  request.end();
 
-  // res.send('Got your post: name: ' + fname + ' ' + lname + ' ' + email);
-});
 
 // If the request fails and user click on try again then  redirect to the main screen.
 app.post('/fealure', (req, res) => {
