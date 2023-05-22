@@ -80,8 +80,6 @@ app.post('/', (req, res) => {
     auth: prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER,
   };
 
- 
-
   // Connect to the mailchip server and send the data
   const request = https.request(url, option, function (response) {
     response.on('data', (data) => {
@@ -98,8 +96,9 @@ app.post('/', (req, res) => {
   request.write(jsonData);
   request.end();
 
+  // res.send('Got your post: name: ' + fname + ' ' + lname + ' ' + email);
+});
 
-// If the request fails and user click on try again then  redirect to the main screen.
 app.post('/fealure', (req, res) => {
   res.redirect('/');
 });
