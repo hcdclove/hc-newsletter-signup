@@ -75,27 +75,7 @@ app.post('/', (req, res) => {
 
   const url = endPoint + '/lists/' + audience;
 
-  const option = {
-    method: 'POST',
-    auth: prefix + ':' + process.env.MC_API_KEY + '-' + process.env.MC_SERVER,
-  };
-
-  // Connect to the mailchip server and send the data
-  const request = https.request(url, option, function (response) {
-    response.on('data', (data) => {
-      const success = 200;
-
-      if (response.statusCode == success) {
-        res.send('Hola Amigo: env: ' + process.env.MC_API_KEY);
-        // res.sendFile(__dirname + '/views/success.html', (req, res) => {});
-        // } else {
-        //   res.sendFile(__dirname + '/views/fealure.html', (req, res) => {});
-      }
-    });
-  });
-
-  request.write(jsonData);
-  request.end();
+  res.send(url);
 
   // res.send('Got your post: name: ' + fname + ' ' + lname + ' ' + email);
 });
