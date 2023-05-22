@@ -30,7 +30,7 @@ app.use(express.static('public'));
 
 async function callPing() {
   const response = await mailchimp.ping.get();
-  // console.log(response.health_status);
+  onsole.log(response.health_status);
 }
 
 // test that  mailchimp is listening to us
@@ -86,9 +86,10 @@ app.post('/', (req, res) => {
       const success = 200;
 
       if (response.statusCode == success) {
-        res.sendFile(__dirname + '/views/success.html', (req, res) => {});
-      } else {
-        res.sendFile(__dirname + '/views/fealure.html', (req, res) => {});
+        res.send('Hola Amigo: env: ' + process.env.MC_API_KEY);
+        // res.sendFile(__dirname + '/views/success.html', (req, res) => {});
+        // } else {
+        //   res.sendFile(__dirname + '/views/fealure.html', (req, res) => {});
       }
     });
   });
