@@ -33,7 +33,7 @@ async function callPing() {
   // console.log(response.health_status);
 }
 
-// test that mailchimp is listening to us
+// test that  mailchimp is listening to us
 // callPing();
 
 // Home route - serving the home page represented by index.html
